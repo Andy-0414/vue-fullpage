@@ -10,5 +10,6 @@
     align-items: center;
     font-size: 2em;
     font-weight: bold;
+    background-color: #FFAAAA;
 }
 </style>

@@ -50,6 +50,9 @@ export default Vue.extend({
                 this.pushToY(this.currentRouterY - 1);
             }
         });
+        addEventListener("mousedown",e=>{
+
+        })
     },
     methods: {
         pushToY(y: number, loop?: boolean) {
@@ -100,7 +103,9 @@ export default Vue.extend({
                     }, 500);
                 } else {
                     this.currentRouterX = x;
-                    this.clear = true;
+                    setTimeout(() => {
+                        this.clear = true;
+                    }, 500);
                     this.$router.replace(this.getCurrentRouter.path);
                 }
             }
@@ -234,19 +239,19 @@ export default Vue.extend({
     width: 10px;
     height: 10px;
     border-radius: 100%;
-    background-color: #bbbbbb;
+    background-color: rgba(0, 0, 0, 0.2);
     margin: 5px;
-    transition: 0.5s;
+    transition: 0.2s;
 }
 .navigation_item-current {
-    width: 20px;
-    height: 20px;
-    background-color: grey;
+    width: 15px;
+    height: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 .router {
     position: absolute;
     top: 0;
     left: 0;
-    transition: 1s;
+    transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 </style>
