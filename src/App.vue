@@ -84,14 +84,14 @@ export default Vue.extend({
         addEventListener("touchend", e => {
             var gapX = startX - endX;
             var gapY = startY - endY;
-            if (gapX > 200 && this.currentRouterX < this.getMaximumX - 1) {
+            if (gapX > 80 && this.currentRouterX < this.getMaximumX - 1) {
                 this.pushToX(this.currentRouterX + 1);
-            } else if (gapX < -200 && this.currentRouterX > 0) {
+            } else if (gapX < -80 && this.currentRouterX > 0) {
                 this.pushToX(this.currentRouterX - 1);
             }
-            if (gapY > 200 && this.currentRouterY < this.getMaximumY - 1) {
+            if (gapY > 80 && this.currentRouterY < this.getMaximumY - 1) {
                 this.pushToY(this.currentRouterY + 1);
-            } else if (gapY < -200 && this.currentRouterY > 0) {
+            } else if (gapY < -80 && this.currentRouterY > 0) {
                 this.pushToY(this.currentRouterY - 1);
             }
         });
