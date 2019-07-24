@@ -50,9 +50,35 @@ export default Vue.extend({
                 this.pushToY(this.currentRouterY - 1);
             }
         });
-        addEventListener("mousedown",e=>{
 
+        var startX = 0;
+        var startY = 0;
+        addEventListener("mousedown", e => {
+            startX = e.clientX;
+            startY = e.clientY;
+        });
+        addEventListener("mouseup", e => {
+            var gapX = startX - e.clientX;
+            var gapY = startY - e.clientY;
+            if (gapY > 200 && this.currentRouterY < this.getMaximumY - 1) {
+                this.pushToY(this.currentRouterY + 1);
+            } else if (gapY < -200 && this.currentRouterY > 0) {
+                this.pushToY(this.currentRouterY - 1);
+            }
+        });
+        addEventListener("touchstart",e=>{
+          startX = e.touches[0].clientX
+          startY = e.touches[0].clientY
         })
+        addEventListener("touchend", e => {
+            var gapX = startX - e.touches[0].clientX;
+            var gapY = startY - e.touches[0].clientY;
+            if (gapY > 200 && this.currentRouterY < this.getMaximumY - 1) {
+                this.pushToY(this.currentRouterY + 1);
+            } else if (gapY < -200 && this.currentRouterY > 0) {
+                this.pushToY(this.currentRouterY - 1);
+            }
+        });
     },
     methods: {
         pushToY(y: number, loop?: boolean) {
