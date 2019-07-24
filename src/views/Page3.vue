@@ -10,8 +10,6 @@
     align-items: center;
     font-size: 2em;
     font-weight: bold;
-    background: url("../assets/3.png");
-    background-size: cover;
-    background-position: center;
+    background-color: #AAAAFF
 }
 </style>

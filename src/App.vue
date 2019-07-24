@@ -53,6 +53,8 @@ export default Vue.extend({
 
         var startX = 0;
         var startY = 0;
+        var endX = 0;
+        var endY = 0;
         addEventListener("mousedown", e => {
             startX = e.clientX;
             startY = e.clientY;
@@ -60,19 +62,33 @@ export default Vue.extend({
         addEventListener("mouseup", e => {
             var gapX = startX - e.clientX;
             var gapY = startY - e.clientY;
+            if (gapX > 200 && this.currentRouterX < this.getMaximumX - 1) {
+                this.pushToX(this.currentRouterX + 1);
+            } else if (gapX < -200 && this.currentRouterX > 0) {
+                this.pushToX(this.currentRouterX - 1);
+            }
             if (gapY > 200 && this.currentRouterY < this.getMaximumY - 1) {
                 this.pushToY(this.currentRouterY + 1);
             } else if (gapY < -200 && this.currentRouterY > 0) {
                 this.pushToY(this.currentRouterY - 1);
             }
         });
-        addEventListener("touchstart",e=>{
-          startX = e.touches[0].clientX
-          startY = e.touches[0].clientY
-        })
+        addEventListener("touchstart", e => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        });
+        addEventListener("touchmove", e => {
+            endX = e.touches[0].clientX;
+            endY = e.touches[0].clientY;
+        });
         addEventListener("touchend", e => {
-            var gapX = startX - e.touches[0].clientX;
-            var gapY = startY - e.touches[0].clientY;
+            var gapX = startX - endX;
+            var gapY = startY - endY;
+            if (gapX > 200 && this.currentRouterX < this.getMaximumX - 1) {
+                this.pushToX(this.currentRouterX + 1);
+            } else if (gapX < -200 && this.currentRouterX > 0) {
+                this.pushToX(this.currentRouterX - 1);
+            }
             if (gapY > 200 && this.currentRouterY < this.getMaximumY - 1) {
                 this.pushToY(this.currentRouterY + 1);
             } else if (gapY < -200 && this.currentRouterY > 0) {
