@@ -34,7 +34,7 @@ export default Vue.extend({
             currentRouterY: 0,
 
             clear: true,
-            delay : 1000
+            delay: 600
         };
     },
     created() {
@@ -45,7 +45,18 @@ export default Vue.extend({
         this.currentRouterY = current.deep || 0;
 
         addEventListener("wheel", e => {
-            if (e.deltaY > 0 && this.currentRouterY < this.getMaximumY - 1) {
+            if (
+                e.deltaY > 0 &&
+                this.currentRouterX < this.getCurrentRouterLine.length - 1 &&
+                e.shiftKey
+            ) {
+                this.pushToX(this.currentRouterX + 1);
+            } else if (e.deltaY < 0 && this.currentRouterX > 0 && e.shiftKey) {
+                this.pushToX(this.currentRouterX - 1);
+            } else if (
+                e.deltaY > 0 &&
+                this.currentRouterY < this.getMaximumY - 1
+            ) {
                 this.pushToY(this.currentRouterY + 1);
             } else if (e.deltaY < 0 && this.currentRouterY > 0) {
                 this.pushToY(this.currentRouterY - 1);
