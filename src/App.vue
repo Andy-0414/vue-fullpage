@@ -46,12 +46,19 @@ export default Vue.extend({
 
         addEventListener("wheel", e => {
             if (
-                e.deltaY > 0 &&
-                this.currentRouterX < this.getCurrentRouterLine.length - 1 &&
-                e.shiftKey
+                (e.deltaY > 0 &&
+                    this.currentRouterX <
+                        this.getCurrentRouterLine.length - 1 &&
+                    e.shiftKey) ||
+                (e.deltaX > 0 &&
+                    this.currentRouterX < this.getCurrentRouterLine.length - 1)
             ) {
                 this.pushToX(this.currentRouterX + 1);
-            } else if (e.deltaY < 0 && this.currentRouterX > 0 && e.shiftKey) {
+            } else if (
+                (e.deltaY < 0 && this.currentRouterX > 0 && e.shiftKey) ||
+                (e.deltaX < 0 &&
+                    this.currentRouterX > 0)
+            ) {
                 this.pushToX(this.currentRouterX - 1);
             } else if (
                 e.deltaY > 0 &&
