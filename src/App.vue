@@ -33,7 +33,8 @@ export default Vue.extend({
             currentRouterX: 0,
             currentRouterY: 0,
 
-            clear: true
+            clear: true,
+            delay : 1000
         };
     },
     created() {
@@ -100,28 +101,30 @@ export default Vue.extend({
         pushToY(y: number, loop?: boolean) {
             if (this.clear || loop) {
                 this.clear = false;
-                this.currentRouterX = 0;
+
                 var gap = y - this.getCurrentRouter.deep;
                 if (gap < 0) this.animation = "up";
                 else this.animation = "down";
                 if (gap > 1) {
                     this.currentRouterY++;
-                    this.$router.replace(this.getCurrentRouter.path);
-                    setTimeout(() => {
-                        this.pushToY(y, true);
-                    }, 500);
                 } else if (gap < -1) {
                     this.currentRouterY--;
+                } else {
+                    this.currentRouterY = y;
+                    if (this.getCurrentRouterLine.length < 2)
+                        this.currentRouterX = 0;
+                    setTimeout(() => {
+                        this.clear = true;
+                    }, this.delay);
+                    this.$router.replace(this.getCurrentRouter.path);
+                }
+                if (gap < -1 || gap > 1) {
+                    if (this.getCurrentRouterLine.length < 2)
+                        this.currentRouterX = 0;
                     this.$router.replace(this.getCurrentRouter.path);
                     setTimeout(() => {
                         this.pushToY(y, true);
-                    }, 500);
-                } else {
-                    this.currentRouterY = y;
-                    setTimeout(() => {
-                        this.clear = true;
-                    }, 500);
-                    this.$router.replace(this.getCurrentRouter.path);
+                    }, this.delay);
                 }
             }
         },
@@ -136,18 +139,18 @@ export default Vue.extend({
                     this.$router.replace(this.getCurrentRouter.path);
                     setTimeout(() => {
                         this.pushToX(x, true);
-                    }, 500);
+                    }, this.delay);
                 } else if (gap < -1) {
                     this.currentRouterX--;
                     this.$router.replace(this.getCurrentRouter.path);
                     setTimeout(() => {
                         this.pushToX(x, true);
-                    }, 500);
+                    }, this.delay);
                 } else {
                     this.currentRouterX = x;
                     setTimeout(() => {
                         this.clear = true;
-                    }, 500);
+                    }, this.delay);
                     this.$router.replace(this.getCurrentRouter.path);
                 }
             }
@@ -187,6 +190,7 @@ export default Vue.extend({
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select: none;
 }
 .down-enter {
     transform: translateY(100%);
